@@ -1,0 +1,769 @@
+/* src/App.css - FIXED (keeping your working layout) */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #ffffff;
+    color: #374151;
+}
+
+/* Keep your #root as-is */
+#root {
+    margin: auto;
+}
+
+/* Wizard Layout */
+.wizard-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 120px;
+    padding-right: 40px;
+}
+
+.vertical-track {
+    position: absolute;
+    left: 60px;
+    top: 60px;
+    bottom: 60px;
+    width: 2px;
+    background-color: #e5e7eb;
+    z-index: 1;
+}
+
+.vertical-track-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--progress-percent, 0%);
+    background-color: #65a30d;
+    transition: height 0.3s ease;
+}
+
+.wizard-section {
+    position: relative;
+    min-height: 95vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 60px 0;
+    scroll-margin-top: 40px;
+}
+
+/* RESTORED: Your working badge positioning (was left: -83px) */
+.step-badge {
+    position: absolute;
+    left: -83px; /* Your working value */
+    top: 60px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    z-index: 10;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.step-badge.active {
+    background-color: #65a30d;
+    color: white;
+    border-color: #65a30d;
+    box-shadow: 0 4px 12px rgba(101, 163, 13, 0.3);
+}
+
+.step-badge.completed {
+    background-color: #65a30d;
+    color: white;
+    border-color: #65a30d;
+}
+
+.step-badge.inactive {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    border-color: #d1d5db;
+}
+
+.section-content {
+    flex: 1;
+    width: 100%;
+    max-width: 700px;
+}
+
+/* ===== Page 1: Topic Selection ===== */
+.page-container {
+    width: 100%;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 400;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.topic-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 24px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    min-height: 120px;
+    justify-content: center;
+    color: #1a1a1a;
+}
+
+.topic-card:hover {
+    border-color: #0891b2;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.topic-card.selected {
+    background-color: #0891b2;
+    border-color: #0891b2;
+    color: white;
+}
+
+.card-icon {
+    color: inherit;
+    opacity: 0.8;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.note-section {
+    margin-bottom: 24px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.note-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #374151;
+    font-size: 14px;
+}
+
+.note-section textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    background-color: white;
+    color: #1a1a1a;
+}
+
+.note-section textarea:focus {
+    outline: none;
+    border-color: #0891b2;
+}
+
+.continue-btn {
+    background-color: #0891b2;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.continue-btn:hover:not(:disabled) {
+    background-color: #0e7490;
+}
+
+.continue-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* ===== Page 2: Location Step (MOVED OUT OF MEDIA QUERY) ===== */
+.location-step-container {
+    width: 100%;
+}
+
+.location-search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    max-width: 500px;
+}
+
+.location-search-bar .zip-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: border-color 0.2s;
+}
+
+.location-search-bar .zip-input:focus {
+    outline: none;
+    border-color: #0891b2;
+}
+
+.location-search-bar .search-btn {
+    padding: 12px 24px;
+    background-color: white;
+    border: 1px solid #0891b2;
+    color: #0891b2;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.location-search-bar .search-btn:hover:not(:disabled) {
+    background-color: #0891b2;
+    color: white;
+}
+
+.location-search-bar .search-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.map-container {
+    width: 100%;
+    height: 400px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    position: relative;
+    border: 1px solid #e5e7eb;
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.map-fallback {
+    background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            rgba(0, 0, 0, 0.03) 20px,
+            rgba(0, 0, 0, 0.03) 21px
+    ),
+    repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 20px,
+            rgba(0, 0, 0, 0.03) 20px,
+            rgba(0, 0, 0, 0.03) 21px
+    ),
+    #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-fallback::after {
+    content: "Kansas City, MO Area Map";
+    color: #9ca3af;
+    font-size: 18px;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.map-pin-marker {
+    position: absolute;
+    top: 45%;
+    left: 52%;
+    transform: translate(-50%, -100%);
+    pointer-events: auto;
+}
+
+.pin-popup {
+    background-color: #65a30d;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    min-width: 180px;
+    position: relative;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pin-popup::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #65a30d;
+}
+
+.pin-popup strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.pin-popup p {
+    margin: 0 0 4px 0;
+    opacity: 0.9;
+}
+
+.map-link {
+    color: white;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+.pin-point {
+    width: 20px;
+    height: 20px;
+    background-color: #65a30d;
+    border: 3px solid white;
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.locations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.location-card {
+    padding: 24px 0;
+}
+
+.location-main {
+    display: flex;
+    gap: 20px;
+}
+
+.location-icon {
+    color: #0891b2;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.location-details {
+    flex: 1;
+}
+
+.location-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.location-address-block h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 4px 0;
+}
+
+.location-city {
+    color: #6b7280;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+}
+
+.location-appointments {
+    color: #9ca3af;
+    font-size: 14px;
+    margin: 0;
+}
+
+.location-distance {
+    color: #6b7280;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.select-location-btn {
+    background-color: #0891b2;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.select-location-btn:hover {
+    background-color: #0e7490;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(8, 145, 178, 0.25);
+}
+
+.select-location-btn.selected {
+    background-color: #65a30d;
+}
+
+.location-divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin-top: 24px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .wizard-container {
+        padding-left: 80px;
+        padding-right: 20px;
+    }
+
+    .vertical-track {
+        left: 40px;
+    }
+
+    .step-badge {
+        left: -63px; /* Adjusted for smaller padding */
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .topics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .wizard-container {
+        padding-left: 20px;
+        padding-top: 60px;
+    }
+
+    .vertical-track {
+        display: none;
+    }
+
+    .wizard-section {
+        min-height: auto;
+        padding-top: 40px;
+        margin-bottom: 40px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .step-badge {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 16px;
+    }
+
+    .topics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    /* Page 4: Contact Details */
+    .contact-details-container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Two-column rows */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-field label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+        text-transform: capitalize;
+    }
+
+    .form-field input {
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 3px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: border-color 0.2s;
+        background-color: white;
+    }
+
+    .form-field input:focus {
+        outline: none;
+        border-color: #0891b2;
+    }
+
+    .form-field input.error {
+        border-color: #ef4444;
+    }
+
+    .error-text {
+        font-size: 12px;
+        color: #ef4444;
+        margin-top: 2px;
+    }
+
+    .form-field input::placeholder {
+        color: #9ca3af;
+    }
+
+    /* Consent Section */
+    .consent-section {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 8px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: #0891b2;
+    }
+
+    .checkbox-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .checkbox-text strong {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .checkbox-text span {
+        font-size: 12px;
+        color: #6b7280;
+        line-height: 1.4;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Step 5: Confirmation Page */
+    .confirmation-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .confirmation-header h1 {
+        font-size: 24px;
+        font-weight: 400;
+        color: #111827;
+        margin-bottom: 24px;
+    }
+
+    .confirmation-greeting {
+        margin-bottom: 32px;
+    }
+
+    .greeting-name {
+        font-size: 16px;
+        color: #374151;
+        margin-bottom: 4px;
+    }
+
+    .greeting-message {
+        font-size: 16px;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .confirmation-details {
+        margin-bottom: 32px;
+    }
+
+    .detail-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 0;
+    }
+
+    .detail-icon {
+        color: #6b7280;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .detail-content {
+        flex: 1;
+    }
+
+    .detail-text {
+        font-size: 15px;
+        color: #374151;
+        margin: 0 0 4px 0;
+        line-height: 1.5;
+        white-space: pre-line;
+    }
+
+    .detail-subtext {
+        font-size: 15px;
+        color: #374151;
+        margin: 0 0 4px 0;
+    }
+
+    .detail-link {
+        font-size: 13px;
+        color: #0891b2;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .detail-link:hover {
+        text-decoration: underline;
+    }
+
+    .detail-divider {
+        height: 1px;
+        background-color: #e5e7eb;
+        margin: 0;
+    }
+
+    /* Checkmark badge for step 5 */
+    .step-badge.checkmark {
+        background-color: #65a30d;
+        color: white;
+    }
+
+    .confirmation-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .btn-edit {
+        background-color: #0891b2;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-edit:hover {
+        background-color: #0e7490;
+    }
+
+    .btn-cancel {
+        background-color: white;
+        color: #dc2626;
+        border: 1px solid #dc2626;
+        padding: 10px 24px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+        background-color: #fef2f2;
+    }
+}
