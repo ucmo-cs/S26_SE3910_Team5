@@ -36,7 +36,7 @@ const availabilityData = [
     }
 ];
 
-export default function TimeSelection({ onUpdate, onContinue }) {
+export default function TimeSelection({ onUpdate, onContinue, showContinue }) {
     const [selectedTime, setSelectedTime] = useState( null);
 
     const handleSelect = (date, time) => {
@@ -74,14 +74,30 @@ export default function TimeSelection({ onUpdate, onContinue }) {
                         type="text"
                         placeholder="CHOOSE DATE"
                         readOnly
-                        style={{ border: 'none', outline: 'none', fontSize: '12px', color: '#9ca3af', textTransform: 'uppercase', width: '100%' }}
+                        style={{
+                            border: 'none',
+                            outline: 'none',
+                            fontSize: '12px',
+                            color: '#9ca3af',
+                            textTransform: 'uppercase',
+                            width: '100%',
+                            flex: 1,
+                            minWidth: 0,
+                            background: '#ffffff',
+                            backgroundColor: '#ffffff',
+                            WebkitAppearance: 'none',
+                            appearance: 'none',
+                        }}
                     />
                 </div>
-                <button style={{
-                    width: '40px', background: '#0891b2', border: '1px solid #0891b2',
-                    borderRadius: '0 2px 2px 0', color: 'white', display: 'flex',
-                    alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
-                }}>
+                <button
+                    type="button"
+                    style={{
+                        width: '40px', background: '#0891b2', border: '1px solid #0891b2',
+                        borderRadius: '0 2px 2px 0', color: 'white', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                    }}
+                >
                     <Search size={18} />
                 </button>
             </div>
@@ -107,11 +123,11 @@ export default function TimeSelection({ onUpdate, onContinue }) {
                                     cursor: slot.available ? 'pointer' : 'not-allowed',
                                     fontFamily: 'inherit',
                                     background: slot.available
-                                        ? (selected ? '#65a30d' : 'white')
-                                        : '#f3f4f6',
+                                        ? (selected ? '#65a30d' : '#ffffff')
+                                        : '#ffffff',
                                     borderColor: slot.available
                                         ? (selected ? '#65a30d' : '#e5e7eb')
-                                        : '#f3f4f6',
+                                        : '#e5e7eb',
                                     color: slot.available
                                         ? (selected ? 'white' : '#374151')
                                         : '#d1d5db',
@@ -119,6 +135,7 @@ export default function TimeSelection({ onUpdate, onContinue }) {
 
                                 return (
                                     <button
+                                        type="button"
                                         key={slot.time}
                                         style={buttonStyle}
                                         onClick={() => handleSelect(day.date, slot)}
@@ -133,22 +150,16 @@ export default function TimeSelection({ onUpdate, onContinue }) {
                 ))}
             </div>
 
-            <button
-                onClick={handleContinue}
-                disabled={!selectedTime}
-                style={{
-                    background: selectedTime ? '#0891b2' : '#9ca3af',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 28px',
-                    borderRadius: '3px',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    cursor: selectedTime ? 'pointer' : 'not-allowed'
-                }}
-            >
-                Continue
-            </button>
+            {showContinue && (
+                <button
+                    type="button"
+                    className="continue-btn"
+                    onClick={handleContinue}
+                    disabled={!selectedTime}
+                >
+                    Continue
+                </button>
+            )}
         </div>
     );
 }

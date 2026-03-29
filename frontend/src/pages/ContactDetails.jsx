@@ -1,7 +1,7 @@
 // src/pages/ContactDetails.jsx
 import { useState } from 'react';
 
-export default function ContactDetails({ onUpdate, onContinue }) {
+export default function ContactDetails({ onUpdate, onContinue, showContinue }) {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -53,7 +53,12 @@ export default function ContactDetails({ onUpdate, onContinue }) {
         borderRadius: '3px',
         fontSize: '14px',
         fontFamily: 'inherit',
-        width: '100%'
+        width: '100%',
+        backgroundColor: '#ffffff',
+        background: '#ffffff',
+        color: '#374151',
+        WebkitAppearance: 'none',
+        appearance: 'none',
     });
 
     return (
@@ -165,23 +170,15 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                     </label>
                 </div>
 
-                <button
-                    onClick={handleSubmit}
-                    style={{
-                        background: '#0891b2',
-                        color: 'white',
-                        border: 'none',
-                        padding: '10px 28px',
-                        borderRadius: '3px',
-                        fontSize: '14px',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        alignSelf: 'flex-start',
-                        marginTop: '8px'
-                    }}
-                >
-                    Continue
-                </button>
+                {showContinue && (
+                    <button
+                        type="button"
+                        className="continue-btn contact-details-continue"
+                        onClick={handleSubmit}
+                    >
+                        Continue
+                    </button>
+                )}
             </div>
         </div>
     );

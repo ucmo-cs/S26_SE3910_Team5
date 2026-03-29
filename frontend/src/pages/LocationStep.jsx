@@ -8,7 +8,7 @@ const mockLocations = [
     { id: 3, address: '4800 Main St', city: 'Kansas City, MO 64112', distance: '3.4 miles', appointments: 8 }
 ];
 
-export default function LocationStep({ selectedLocation, onUpdate, onContinue }) {
+export default function LocationStep({ selectedLocation, onUpdate, onContinue, showContinue }) {
     const [selected, setSelected] = useState(selectedLocation?.id || null);
     const [zipCode, setZipCode] = useState('');
     const [hasSearched, setHasSearched] = useState(true);
@@ -35,7 +35,11 @@ export default function LocationStep({ selectedLocation, onUpdate, onContinue })
                     className="zip-input"
                     maxLength="5"
                 />
-                <button className="search-btn" onClick={() => setHasSearched(true)}>
+                <button
+                    type="button"
+                    className="search-btn"
+                    onClick={() => setHasSearched(true)}
+                >
                     Search
                 </button>
             </div>
@@ -43,15 +47,16 @@ export default function LocationStep({ selectedLocation, onUpdate, onContinue })
             {/* Map and Results */}
             {hasSearched && (
                 <div className="location-results">
-                    {/* Map Placeholder */}
-                    <div className="map-container">
-                        <div className="map-placeholder map-fallback">
-                            <div className="map-pin-marker">
-                                <div className="pin-popup">
-                                    <strong>Commerce Bank</strong>
-                                    <p>922 Walnut St<br/>Kansas City, MO 64106</p>
+                    <div className="map-full-bleed">
+                        <div className="map-container">
+                            <div className="map-placeholder map-fallback">
+                                <div className="map-pin-marker">
+                                    <div className="pin-popup">
+                                        <strong>Commerce Bank</strong>
+                                        <p>922 Walnut St<br/>Kansas City, MO 64106</p>
+                                    </div>
+                                    <div className="pin-point"></div>
                                 </div>
-                                <div className="pin-point"></div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +83,7 @@ export default function LocationStep({ selectedLocation, onUpdate, onContinue })
                                         </div>
 
                                         <button
+                                            type="button"
                                             className={`select-location-btn ${selected === location.id ? 'selected' : ''}`}
                                             onClick={() => handleSelect(location)}
                                         >
@@ -89,8 +95,13 @@ export default function LocationStep({ selectedLocation, onUpdate, onContinue })
                         ))}
                     </div>
 
-                    {selected && (
-                        <button className="continue-btn" onClick={onContinue} style={{ marginTop: '32px' }}>
+                    {selected && showContinue && (
+                        <button
+                            type="button"
+                            className="continue-btn"
+                            onClick={onContinue}
+                            style={{ marginTop: '32px' }}
+                        >
                             Continue
                         </button>
                     )}
