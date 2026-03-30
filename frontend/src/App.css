@@ -14,6 +14,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #ffffff;
     color: #374151;
+    overflow-x: hidden;
 }
 
 /* Keep your #root as-is */
@@ -28,35 +29,96 @@ body {
     margin: 0 auto;
     padding-left: 120px;
     padding-right: 40px;
+    --rail-x: 60px;
+    --badge-top: 60px;
+    --badge-gap: 8px;
+    --badge-size: 48px;
 }
 
-.vertical-track {
+.wizard-progress-track {
     position: absolute;
-    left: 60px;
+    left: var(--rail-x);
     top: 60px;
     bottom: 60px;
     width: 2px;
-    background-color: #e5e7eb;
-    z-index: 1;
+    /* Above grey rail segments (z-index 1) so green fill is visible */
+    z-index: 2;
+    pointer-events: none;
 }
 
-.vertical-track-fill {
+.wizard-progress-fill {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--progress-percent, 0%);
+    height: 0;
     background-color: #65a30d;
-    transition: height 0.3s ease;
+    transition: height 0.75s ease, top 0.75s ease;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-mode: luminance;
+}
+
+/* Grey line stops before each step circle and resumes after (not through the badge) */
+.wizard-section-rail {
+    position: absolute;
+    left: calc(var(--rail-x) - 120px);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.wizard-rail-line {
+    position: absolute;
+    left: 0;
+    width: 2px;
+    background-color: #e5e7eb;
+}
+
+.wizard-rail-line--before {
+    top: 0;
+    height: calc(var(--badge-top) - var(--badge-gap));
+}
+
+.wizard-rail-line--after {
+    top: calc(var(--badge-top) + var(--badge-size) + var(--badge-gap));
+    bottom: 0;
+}
+
+.wizard-section--confirmation .wizard-rail-line--after {
+    display: none;
+}
+
+/* No segment above step 1 — nothing precedes the first circle */
+.wizard-section[data-step='1'] .wizard-rail-line--before {
+    display: none;
+}
+
+/* Gray continuation to the viewport bottom (steps 1–4); no extra page height */
+.vertical-track-tail {
+    display: none;
+    position: fixed;
+    width: 2px;
+    background-color: #e5e7eb;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .wizard-section {
     position: relative;
-    min-height: 95vh;
+    min-height: 0;
     display: flex;
     align-items: flex-start;
-    padding: 60px 0;
-    scroll-margin-top: 40px;
+    padding: 28px 0 36px;
+    scroll-margin-top: 24px;
+}
+
+/* Clicks cannot reach earlier steps while Confirmation is active (inert + reliable hit-testing) */
+.wizard-container.wizard-freeze-prior-steps .wizard-section:not(.wizard-section--confirmation) {
+    pointer-events: none;
+    user-select: none;
 }
 
 /* RESTORED: Your working badge positioning (was left: -83px) */
@@ -74,7 +136,11 @@ body {
     font-size: 18px;
     z-index: 10;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition:
+        background-color 0.75s ease,
+        color 0.75s ease,
+        border-color 0.75s ease,
+        box-shadow 0.75s ease;
 }
 
 .step-badge.active {
@@ -91,9 +157,15 @@ body {
 }
 
 .step-badge.inactive {
-    background-color: #e5e7eb;
+    background-color: #ffffff;
     color: #9ca3af;
     border-color: #d1d5db;
+}
+
+.step-badge.checkmark {
+    background-color: #65a30d;
+    color: white;
+    border-color: #65a30d;
 }
 
 .section-content {
@@ -102,13 +174,188 @@ body {
     max-width: 700px;
 }
 
+/* ===== Confirmation (all viewports) ===== */
+.confirmation-container {
+    width: 100%;
+    max-width: 520px;
+}
+
+.confirmation-header h1 {
+    font-size: 26px;
+    font-weight: 500;
+    color: #111827;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+}
+
+.confirmation-greeting {
+    margin-bottom: 20px;
+}
+
+.greeting-name {
+    font-size: 17px;
+    color: #374151;
+    margin: 0 0 6px;
+    font-weight: 500;
+}
+
+.greeting-message {
+    font-size: 15px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.confirmation-details {
+    margin-bottom: 28px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.confirmation-details .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    margin: 0;
+}
+
+.confirmation-details .detail-icon {
+    color: #9ca3af;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.confirmation-details .detail-icon svg {
+    stroke-width: 1.5;
+}
+
+.confirmation-details .detail-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.confirmation-details .detail-text {
+    font-size: 15px;
+    color: #1f2937;
+    margin: 0 0 6px;
+    line-height: 1.45;
+}
+
+.confirmation-details .confirmation-detail-row--topics .detail-content {
+    padding-left: 2px;
+}
+
+.confirmation-details .confirmation-topic-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.confirmation-details .confirmation-topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: #1f2937;
+    line-height: 1.45;
+    margin: 0 0 10px;
+}
+
+.confirmation-details .confirmation-topic-item:last-child {
+    margin-bottom: 0;
+}
+
+.confirmation-details .confirmation-topic-icon {
+    flex-shrink: 0;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    margin-top: 1px;
+}
+
+.confirmation-details .confirmation-topic-icon svg {
+    stroke-width: 1.5;
+}
+
+.confirmation-details .confirmation-topic-label {
+    flex: 1;
+    min-width: 0;
+}
+
+.confirmation-details .detail-subtext {
+    font-size: 15px;
+    color: #1f2937;
+    margin: 0 0 6px;
+}
+
+.confirmation-details .detail-link {
+    font-size: 13px;
+    color: #0891b2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.confirmation-details .detail-link:hover {
+    text-decoration: underline;
+}
+
+.confirmation-details .detail-divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 0;
+}
+
+.confirmation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.confirmation-actions .btn-edit {
+    background-color: #0891b2;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.confirmation-actions .btn-edit:hover {
+    background-color: #0e7490;
+}
+
+.confirmation-actions .btn-cancel {
+    background-color: #ffffff;
+    color: #dc2626;
+    border: 1px solid #dc2626;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.confirmation-actions .btn-cancel:hover {
+    background-color: #fef2f2;
+}
+
 /* ===== Page 1: Topic Selection ===== */
 .page-container {
     width: 100%;
 }
 
 .page-header {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .page-header h1 {
@@ -170,7 +417,7 @@ body {
 
 .note-section {
     margin-bottom: 24px;
-    background-color: #f9fafb;
+    background-color: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 4px;
     padding: 16px;
@@ -213,15 +460,23 @@ body {
     transition: background-color 0.2s;
 }
 
+.contact-details-continue {
+    align-self: flex-start;
+    margin-top: 8px;
+}
+
 .continue-btn:hover:not(:disabled) {
     background-color: #0e7490;
 }
 
 .continue-btn:disabled {
-    background-color: #9ca3af;
+    background-color: #ffffff;
+    color: #9ca3af;
+    border: 1px solid #e5e7eb;
     cursor: not-allowed;
 }
 
+/* Prior steps while Confirmation is active: show Continue as disabled (inert already blocks clicks) */
 /* ===== Page 2: Location Step (MOVED OUT OF MEDIA QUERY) ===== */
 .location-step-container {
     width: 100%;
@@ -230,8 +485,28 @@ body {
 .location-search-bar {
     display: flex;
     gap: 12px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     max-width: 500px;
+}
+
+/* Full-bleed map: break out of centered column; above progress line so rail sits behind */
+.map-full-bleed {
+    position: relative;
+    z-index: 3;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-bottom: 24px;
+}
+
+.map-full-bleed .map-container {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
 }
 
 .location-search-bar .zip-input {
@@ -243,6 +518,10 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: border-color 0.2s;
+    background-color: #ffffff;
+    color: #374151;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .location-search-bar .zip-input:focus {
@@ -275,7 +554,7 @@ body {
 .map-container {
     width: 100%;
     height: 400px;
-    background-color: #f3f4f6;
+    background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 32px;
@@ -287,7 +566,7 @@ body {
     width: 100%;
     height: 100%;
     position: relative;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    background: #ffffff;
 }
 
 .map-image {
@@ -298,21 +577,22 @@ body {
 }
 
 .map-fallback {
-    background: repeating-linear-gradient(
+    background:
+        repeating-linear-gradient(
             0deg,
             transparent,
             transparent 20px,
-            rgba(0, 0, 0, 0.03) 20px,
-            rgba(0, 0, 0, 0.03) 21px
-    ),
-    repeating-linear-gradient(
+            rgba(0, 0, 0, 0.04) 20px,
+            rgba(0, 0, 0, 0.04) 21px
+        ),
+        repeating-linear-gradient(
             90deg,
             transparent,
             transparent 20px,
-            rgba(0, 0, 0, 0.03) 20px,
-            rgba(0, 0, 0, 0.03) 21px
-    ),
-    #f5f5f5;
+            rgba(0, 0, 0, 0.04) 20px,
+            rgba(0, 0, 0, 0.04) 21px
+        ),
+        #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -483,10 +763,16 @@ body {
     .wizard-container {
         padding-left: 80px;
         padding-right: 20px;
+        --rail-x: 40px;
+        --badge-size: 40px;
     }
 
-    .vertical-track {
-        left: 40px;
+    .wizard-progress-track {
+        left: var(--rail-x);
+    }
+
+    .wizard-section-rail {
+        left: calc(var(--rail-x) - 80px);
     }
 
     .step-badge {
@@ -507,8 +793,16 @@ body {
         padding-top: 60px;
     }
 
-    .vertical-track {
+    .wizard-progress-track {
         display: none;
+    }
+
+    .wizard-section-rail {
+        display: none;
+    }
+
+    .vertical-track-tail {
+        display: none !important;
     }
 
     .wizard-section {
@@ -640,130 +934,5 @@ body {
         .form-row {
             grid-template-columns: 1fr;
         }
-    }
-
-    /* Step 5: Confirmation Page */
-    .confirmation-container {
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .confirmation-header h1 {
-        font-size: 24px;
-        font-weight: 400;
-        color: #111827;
-        margin-bottom: 24px;
-    }
-
-    .confirmation-greeting {
-        margin-bottom: 32px;
-    }
-
-    .greeting-name {
-        font-size: 16px;
-        color: #374151;
-        margin-bottom: 4px;
-    }
-
-    .greeting-message {
-        font-size: 16px;
-        color: #6b7280;
-        margin: 0;
-    }
-
-    .confirmation-details {
-        margin-bottom: 32px;
-    }
-
-    .detail-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 16px 0;
-    }
-
-    .detail-icon {
-        color: #6b7280;
-        flex-shrink: 0;
-        margin-top: 2px;
-    }
-
-    .detail-content {
-        flex: 1;
-    }
-
-    .detail-text {
-        font-size: 15px;
-        color: #374151;
-        margin: 0 0 4px 0;
-        line-height: 1.5;
-        white-space: pre-line;
-    }
-
-    .detail-subtext {
-        font-size: 15px;
-        color: #374151;
-        margin: 0 0 4px 0;
-    }
-
-    .detail-link {
-        font-size: 13px;
-        color: #0891b2;
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    .detail-link:hover {
-        text-decoration: underline;
-    }
-
-    .detail-divider {
-        height: 1px;
-        background-color: #e5e7eb;
-        margin: 0;
-    }
-
-    /* Checkmark badge for step 5 */
-    .step-badge.checkmark {
-        background-color: #65a30d;
-        color: white;
-    }
-
-    .confirmation-actions {
-        display: flex;
-        gap: 12px;
-        margin-top: 24px;
-    }
-
-    .btn-edit {
-        background-color: #0891b2;
-        color: white;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 3px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .btn-edit:hover {
-        background-color: #0e7490;
-    }
-
-    .btn-cancel {
-        background-color: white;
-        color: #dc2626;
-        border: 1px solid #dc2626;
-        padding: 10px 24px;
-        border-radius: 3px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .btn-cancel:hover {
-        background-color: #fef2f2;
     }
 }

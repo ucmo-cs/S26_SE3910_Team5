@@ -1,15 +1,14 @@
 // src/pages/ContactDetails.jsx
 import { useState } from 'react';
 
-export default function ContactDetails({ onUpdate, onContinue, contactData }) {
-    const [formData, setFormData] = useState({
+
+export default function ContactDetails({ onUpdate, onContinue, contactData, showContinue }) {
         firstName: contactData?.firstName || '',
         lastName: contactData?.lastName || '',
         email: contactData?.email || '',
         phone: contactData?.phone || '',
         textConsent: contactData?.textConsent || false,
         emailConsent: contactData?.emailConsent || false
-    });
 
     const [errors, setErrors] = useState({});
 
@@ -53,7 +52,12 @@ export default function ContactDetails({ onUpdate, onContinue, contactData }) {
         borderRadius: '3px',
         fontSize: '14px',
         fontFamily: 'inherit',
-        width: '100%'
+        width: '100%',
+        backgroundColor: '#ffffff',
+        background: '#ffffff',
+        color: '#374151',
+        WebkitAppearance: 'none',
+        appearance: 'none',
     });
 
     return (
@@ -101,6 +105,7 @@ export default function ContactDetails({ onUpdate, onContinue, contactData }) {
                     </div>
                 </div>
 
+                {/* Contact Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         <label style={{ fontSize: '13px', fontWeight: 500, color: '#6b7280' }}>
@@ -140,6 +145,7 @@ export default function ContactDetails({ onUpdate, onContinue, contactData }) {
                     </div>
                 </div>
 
+                {/* Consent Checkboxes */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '8px' }}>
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
                         <input
@@ -178,23 +184,15 @@ export default function ContactDetails({ onUpdate, onContinue, contactData }) {
                     </label>
                 </div>
 
-                <button
-                    onClick={handleSubmit}
-                    style={{
-                        background: '#0891b2',
-                        color: 'white',
-                        border: 'none',
-                        padding: '10px 28px',
-                        borderRadius: '3px',
-                        fontSize: '14px',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        alignSelf: 'flex-start',
-                        marginTop: '8px'
-                    }}
-                >
-                    Continue
-                </button>
+                {showContinue && (
+                    <button
+                        type="button"
+                        className="continue-btn contact-details-continue"
+                        onClick={handleSubmit}
+                    >
+                        Continue
+                    </button>
+                )}
             </div>
         </div>
     );

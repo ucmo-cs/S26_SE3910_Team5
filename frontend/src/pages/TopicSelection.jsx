@@ -11,9 +11,10 @@ const topics = [
     { id: 'home', title: 'Home Equity' },
     { id: 'mortgage', title: 'Mortgage' },
     { id: 'credit', title: 'Credit Card' },
+    { id: 'other', title: 'Other' },
 ];
 
-export default function TopicSelection({onUpdate, onContinue }) {
+export default function TopicSelection({ onUpdate, onContinue, showContinue }) {
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
@@ -54,13 +55,15 @@ export default function TopicSelection({onUpdate, onContinue }) {
                 />
             </div>
 
-            <button
-                className="continue-btn"
-                onClick={onContinue}
-                disabled={selected.length === 0}
-            >
-                Continue
-            </button>
+            {showContinue && (
+                <button
+                    className="continue-btn"
+                    onClick={onContinue}
+                    disabled={selected.length === 0}
+                >
+                    Continue
+                </button>
+            )}
         </div>
     );
 }

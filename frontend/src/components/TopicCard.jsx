@@ -1,36 +1,8 @@
 // src/components/TopicCard.jsx
-import {
-    Wallet,
-    PiggyBank,
-    Coins,
-    GraduationCap,
-    Car,
-    Home,
-    Building,
-    Landmark,
-    TrendingUp,
-    CreditCard,
-    MessageSquare,
-    Banknote
-} from 'lucide-react';
-
-const iconMap = {
-    'checking': Banknote,
-    'savings': PiggyBank,
-    'cds': Coins,
-    'student-banking': GraduationCap,
-    'auto': Car,
-    'home-equity': Home,
-    'mortgage': Building,
-    'student-loans': GraduationCap,
-    'retirement': Wallet,
-    'investment': TrendingUp,
-    'credit-card': CreditCard,
-    'other': MessageSquare
-};
+import { getTopicIconComponent } from '../constants/topicIcons';
 
 export default function TopicCard({ id, title, selected, onClick }) {
-    const IconComponent = iconMap[id] || Wallet;
+    const IconComponent = getTopicIconComponent(id);
 
     return (
         <button
