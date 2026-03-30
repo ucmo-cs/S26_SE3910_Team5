@@ -304,6 +304,7 @@ export default function App() {
                     <div className={`step-badge ${getStepClass(4)}`}>4</div>
                     <div className="section-content">
                         <ContactDetails
+                            contactData={formData.contact}
                             onUpdate={updateContact}
                             onContinue={() => unlockAndScrollTo(5)}
                             showContinue={currentStep === 4}

@@ -3,12 +3,14 @@ import { useState } from 'react';
 
 
 export default function ContactDetails({ onUpdate, onContinue, contactData, showContinue }) {
-        firstName: contactData?.firstName || '',
-        lastName: contactData?.lastName || '',
-        email: contactData?.email || '',
-        phone: contactData?.phone || '',
-        textConsent: contactData?.textConsent || false,
-        emailConsent: contactData?.emailConsent || false
+        const [formData, setFormData] = useState({
+            firstName: contactData?.firstName || '',
+            lastName: contactData?.lastName || '',
+            email: contactData?.email || '',
+            phone: contactData?.phone || '',
+            textConsent: contactData?.textConsent || false,
+            emailConsent: contactData?.emailConsent || false
+        });
 
     const [errors, setErrors] = useState({});
 
@@ -39,10 +41,41 @@ export default function ContactDetails({ onUpdate, onContinue, contactData, show
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = () => {
-        if (validate()) {
-            onUpdate(formData);
+    const handleSubmit = async () => {
+        if (!validate()) return;
+
+        try {
+            const response = await fetch('http://localhost:8080/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    phone: formData.phone
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+            }
+
+            const createdUser = await response.json();
+
+            onUpdate({
+                ...formData,
+                userId: createdUser.userId ?? createdUser.user_id
+            });
+
             onContinue();
+        } catch (error) {
+            console.error('Error creating user:', error);
+            setErrors(prev => ({
+                ...prev,
+                submit: 'Could not save contact information.'
+            }));
         }
     };
 
