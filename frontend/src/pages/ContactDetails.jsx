@@ -1,14 +1,14 @@
 // src/pages/ContactDetails.jsx
 import { useState } from 'react';
 
-export default function ContactDetails({ onUpdate, onContinue }) {
+export default function ContactDetails({ onUpdate, onContinue, contactData }) {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        textConsent: false,
-        emailConsent: false
+        firstName: contactData?.firstName || '',
+        lastName: contactData?.lastName || '',
+        email: contactData?.email || '',
+        phone: contactData?.phone || '',
+        textConsent: contactData?.textConsent || false,
+        emailConsent: contactData?.emailConsent || false
     });
 
     const [errors, setErrors] = useState({});
@@ -42,8 +42,8 @@ export default function ContactDetails({ onUpdate, onContinue }) {
 
     const handleSubmit = () => {
         if (validate()) {
-            onUpdate(formData); // <-- PASS DATA UP
-            onContinue();       // <-- THEN ADVANCE
+            onUpdate(formData);
+            onContinue();
         }
     };
 
@@ -63,7 +63,6 @@ export default function ContactDetails({ onUpdate, onContinue }) {
             </h1>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {/* Name Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         <label style={{ fontSize: '13px', fontWeight: 500, color: '#6b7280' }}>
@@ -76,7 +75,11 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                             onChange={handleChange}
                             style={inputStyle(errors.firstName)}
                         />
-                        {errors.firstName && <span style={{ fontSize: '12px', color: '#ef4444' }}>{errors.firstName}</span>}
+                        {errors.firstName && (
+                            <span style={{ fontSize: '12px', color: '#ef4444' }}>
+                                {errors.firstName}
+                            </span>
+                        )}
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -90,11 +93,14 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                             onChange={handleChange}
                             style={inputStyle(errors.lastName)}
                         />
-                        {errors.lastName && <span style={{ fontSize: '12px', color: '#ef4444' }}>{errors.lastName}</span>}
+                        {errors.lastName && (
+                            <span style={{ fontSize: '12px', color: '#ef4444' }}>
+                                {errors.lastName}
+                            </span>
+                        )}
                     </div>
                 </div>
 
-                {/* Contact Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         <label style={{ fontSize: '13px', fontWeight: 500, color: '#6b7280' }}>
@@ -107,7 +113,11 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                             onChange={handleChange}
                             style={inputStyle(errors.email)}
                         />
-                        {errors.email && <span style={{ fontSize: '12px', color: '#ef4444' }}>{errors.email}</span>}
+                        {errors.email && (
+                            <span style={{ fontSize: '12px', color: '#ef4444' }}>
+                                {errors.email}
+                            </span>
+                        )}
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -122,11 +132,14 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                             onChange={handleChange}
                             style={inputStyle(errors.phone)}
                         />
-                        {errors.phone && <span style={{ fontSize: '12px', color: '#ef4444' }}>{errors.phone}</span>}
+                        {errors.phone && (
+                            <span style={{ fontSize: '12px', color: '#ef4444' }}>
+                                {errors.phone}
+                            </span>
+                        )}
                     </div>
                 </div>
 
-                {/* Consent Checkboxes */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '8px' }}>
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
                         <input
@@ -141,8 +154,8 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                                 Text Message Consent
                             </strong>
                             <span style={{ fontSize: '12px', color: '#6b7280' }}>
-                By checking, I'm providing my consent to receive text updates.
-              </span>
+                                By checking, I'm providing my consent to receive text updates.
+                            </span>
                         </div>
                     </label>
 
@@ -159,8 +172,8 @@ export default function ContactDetails({ onUpdate, onContinue }) {
                                 Email Consent
                             </strong>
                             <span style={{ fontSize: '12px', color: '#6b7280' }}>
-                By checking, I'm providing my consent to receive email updates.
-              </span>
+                                By checking, I'm providing my consent to receive email updates.
+                            </span>
                         </div>
                     </label>
                 </div>

@@ -6,6 +6,7 @@ import LocationStep from './pages/LocationStep';
 import TimeSelection from './pages/TimeSelection';
 import ContactDetails from './pages/ContactDetails';
 import Confirmation from './pages/Confirmation';
+//import TestConnection from "./TestingBackFrontConnection";
 import './App.css';
 
 export default function App() {
