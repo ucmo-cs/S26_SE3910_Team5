@@ -1,21 +1,19 @@
 package com.group5.backend.controller;
 
 import com.group5.backend.model.User;
-import com.group5.backend.repository.UserRepository;
+import com.group5.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    // Constructor Injection
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     // =========================
@@ -23,7 +21,7 @@ public class UserController {
     // =========================
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     // =========================
@@ -31,8 +29,7 @@ public class UserController {
     // =========================
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null); // simple for now
+        return userService.getUserById(id);
     }
 
     // =========================
@@ -40,14 +37,37 @@ public class UserController {
     // =========================
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
+    }
+    //    {
+    //        "firstName": "Bob",
+    //        "lastName": "Johnson",
+    //        "email": "bob@example.com",
+    //        "phone": "444-444-4444"
+    //    }
+
+    // =========================
+    // DELETE BY ID
+    // =========================
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
     }
 
-    // example input
-    // {
-    //     "firstName": "Bob",
-    //     "lastName": "Johnson",
-    //     "email": "bob@example.com",
-    //     "phone": "444-444-4444"
-    // }
+    // =========================
+    // PUT BY ID
+    // =========================
+    @PutMapping("/{id}")
+    public User updateUser(
+            @PathVariable Long id,
+            @RequestBody User user) {
+
+        return userService.updateUser(id, user);
+    }
+    //    {
+    //        "firstName": "Robert",
+    //        "lastName": "Johnson",
+    //        "email": "robert@example.com",
+    //        "phone": "555-555-5555"
+    //    }
 }

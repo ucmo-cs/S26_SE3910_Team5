@@ -1,21 +1,19 @@
 package com.group5.backend.controller;
 
 import com.group5.backend.model.Appointment;
-import com.group5.backend.repository.AppointmentRepository;
+import com.group5.backend.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentService appointmentService;
 
-    // Constructor Injection
-    public AppointmentController(AppointmentRepository appointmentRepository) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentController(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
     }
 
     // =========================
@@ -23,7 +21,7 @@ public class AppointmentController {
     // =========================
     @GetMapping
     public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+        return appointmentService.getAllAppointments();
     }
 
     // =========================
@@ -31,8 +29,7 @@ public class AppointmentController {
     // =========================
     @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable Long id) {
-        Optional<Appointment> appointment = appointmentRepository.findById(id);
-        return appointment.orElse(null); // simple for now
+        return appointmentService.getAppointmentById(id);
     }
 
     // =========================
@@ -40,7 +37,7 @@ public class AppointmentController {
     // =========================
     @PostMapping
     public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointmentRepository.save(appointment);
+        return appointmentService.createAppointment(appointment);
     }
 
     // example input
@@ -49,5 +46,31 @@ public class AppointmentController {
     //        "timeSlot": { "timeSlotId": 2 },
     //        "type": "Loan Consultation",
     //        "status": "booked"
+    //    }
+
+
+    // =========================
+    // DELETE BY ID
+    // =========================
+    @DeleteMapping("/{id}")
+    public void deleteAppointment(@PathVariable Long id) {
+        appointmentService.deleteAppointment(id);
+    }
+
+    // =========================
+    // PUT BY ID
+    // =========================
+    @PutMapping("/{id}")
+    public Appointment updateAppointment(
+            @PathVariable Long id,
+            @RequestBody Appointment appointment) {
+
+        return appointmentService.updateAppointment(id, appointment);
+    }
+    //    {
+    //        "user": { "userId": 1 },
+    //        "timeSlot": { "timeSlotId": 2 },
+    //        "type": "Loan Consultation",
+    //        "status": "completed"
     //    }
 }

@@ -4,54 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="Heres the code for the database along with some test data&#10;&#10;I have been trying to push this stupid little bit of code for HOURS now and every possible bug/issue that could exist/happen happened. The readme has instructions for getting your own local database running. (I have plans to fix in the future but for now everything just works)">
-      <change afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/BranchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TimeSlotController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/Appointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/Branch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/TimeSlot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/repository/AppointmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/repository/BranchRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/repository/TimeSlotRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commerce.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/commerce.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seed.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/seed.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/vite.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/react.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/react.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Stepper.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Stepper.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TopicCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TopicCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Confirmation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Confirmation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ContactDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ContactDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/LocationStep.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LocationStep.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/TimeSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/TimeSelection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/TopicSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/TopicSelection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
+    <list default="true" id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="filed away the front end from the back end. Also added all the basic get/post stuff to interact between the database and the code">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/AppointmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/BranchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/TimeSlotService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/BranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/BranchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TimeSlotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TimeSlotController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,27 +57,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/hunte/IdeaProjects/S26_SE3910_Team5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hunte/IdeaProjects/S26_SE3910_Team5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hunte\IdeaProjects\S26_SE3910_Team5" />
@@ -119,6 +95,7 @@
   <component name="RunManager">
     <configuration name="BackendApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.group5.backend.BackendApplication" />
+      <module name="backend" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.group5.backend.*" />
@@ -155,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771821345922</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="filed away the front end from the back end. Also added all the basic get/post stuff to interact between the database and the code">
+      <option name="closed" value="true" />
+      <created>1774404052217</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774404052217</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +148,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Heres the code for the database along with some test data&#10;&#10;I have been trying to push this stupid little bit of code for HOURS now and every possible bug/issue that could exist/happen happened. The readme has instructions for getting your own local database running. (I have plans to fix in the future but for now everything just works)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Heres the code for the database along with some test data&#10;&#10;I have been trying to push this stupid little bit of code for HOURS now and every possible bug/issue that could exist/happen happened. The readme has instructions for getting your own local database running. (I have plans to fix in the future but for now everything just works)" />
+    <MESSAGE value="filed away the front end from the back end. Also added all the basic get/post stuff to interact between the database and the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="filed away the front end from the back end. Also added all the basic get/post stuff to interact between the database and the code" />
   </component>
 </project>

@@ -1,21 +1,19 @@
 package com.group5.backend.controller;
 
 import com.group5.backend.model.TimeSlot;
-import com.group5.backend.repository.TimeSlotRepository;
+import com.group5.backend.service.TimeSlotService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/timeslots")
 public class TimeSlotController {
 
-    private final TimeSlotRepository timeSlotRepository;
+    private final TimeSlotService timeSlotService;
 
-    // Constructor Injection
-    public TimeSlotController(TimeSlotRepository timeSlotRepository) {
-        this.timeSlotRepository = timeSlotRepository;
+    public TimeSlotController(TimeSlotService timeSlotService) {
+        this.timeSlotService = timeSlotService;
     }
 
     // =========================
@@ -23,7 +21,7 @@ public class TimeSlotController {
     // =========================
     @GetMapping
     public List<TimeSlot> getAllTimeSlots() {
-        return timeSlotRepository.findAll();
+        return timeSlotService.getAllTimeSlots();
     }
 
     // =========================
@@ -31,8 +29,7 @@ public class TimeSlotController {
     // =========================
     @GetMapping("/{id}")
     public TimeSlot getTimeSlotById(@PathVariable Long id) {
-        Optional<TimeSlot> timeSlot = timeSlotRepository.findById(id);
-        return timeSlot.orElse(null); // simple for now
+        return timeSlotService.getTimeSlotById(id);
     }
 
     // =========================
@@ -40,14 +37,37 @@ public class TimeSlotController {
     // =========================
     @PostMapping
     public TimeSlot createTimeSlot(@RequestBody TimeSlot timeSlot) {
-        return timeSlotRepository.save(timeSlot);
+        return timeSlotService.createTimeSlot(timeSlot);
+    }
+    //    {
+    //        "branch": { "branchId": 1 },
+    //        "startTime": "2026-05-02T11:00:00-06:00",
+    //        "endTime": "2026-05-02T11:30:00-06:00",
+    //        "isAvailable": true
+    //    }
+
+    // =========================
+    // DELETE BY ID
+    // =========================
+    @DeleteMapping("/{id}")
+    public void deleteTimeSlot(@PathVariable Long id) {
+        timeSlotService.deleteTimeSlot(id);
     }
 
-    // example input
-    // {
-    //     "branch": { "branchId": 1 },
-    //     "startTime": "2026-03-02T11:00:00-06:00",
-    //     "endTime": "2026-03-02T11:30:00-06:00",
-    //     "isAvailable": true
-    // }
+    // =========================
+    // PUT BY ID
+    // =========================
+    @PutMapping("/{id}")
+    public TimeSlot updateTimeSlot(
+            @PathVariable Long id,
+            @RequestBody TimeSlot timeSlot) {
+
+        return timeSlotService.updateTimeSlot(id, timeSlot);
+    }
+    //    {
+    //        "branch": { "branchId": 1 },
+    //        "startTime": "2026-03-02T12:00:00-06:00",
+    //        "endTime": "2026-03-02T12:30:00-06:00",
+    //        "isAvailable": false
+    //    }
 }
