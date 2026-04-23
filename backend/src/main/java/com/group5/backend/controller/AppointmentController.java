@@ -58,6 +58,14 @@ public class AppointmentController {
     }
 
     // =========================
+    // DELETE BY ALL
+    // =========================
+    @DeleteMapping("/ALL")
+    public String deleteAllAppointments() {
+        return appointmentService.deleteAllAppointments();
+    }
+
+    // =========================
     // PUT BY ID
     // =========================
     @PutMapping("/{id}")

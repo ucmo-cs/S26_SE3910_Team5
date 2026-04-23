@@ -54,6 +54,14 @@ public class BranchController {
     }
 
     // =========================
+    // DELETE ALL
+    // =========================
+    @DeleteMapping("/ALL")
+    public String deleteAllBranches() {
+        return branchService.deleteAllBranches();
+    }
+
+    // =========================
     // PUT BY ID
     // =========================
     @PutMapping("/{id}")

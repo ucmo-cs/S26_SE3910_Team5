@@ -55,6 +55,14 @@ public class TimeSlotController {
     }
 
     // =========================
+    // DELETE ALL
+    // =========================
+    @DeleteMapping("/ALL")
+    public String deleteAllTimeSlots() {
+        return timeSlotService.deleteAllTimeSlots();
+    }
+
+    // =========================
     // PUT BY ID
     // =========================
     @PutMapping("/{id}")

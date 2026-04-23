@@ -11,26 +11,42 @@ public class TimeSlotService {
 
     private final TimeSlotRepository timeSlotRepository;
 
+    //
     public TimeSlotService(TimeSlotRepository timeSlotRepository) {
         this.timeSlotRepository = timeSlotRepository;
     }
 
+    //
     public List<TimeSlot> getAllTimeSlots() {
         return timeSlotRepository.findAll();
     }
 
+    //
     public TimeSlot getTimeSlotById(Long id) {
         return timeSlotRepository.findById(id).orElse(null);
     }
 
+    //
     public TimeSlot createTimeSlot(TimeSlot timeSlot) {
         return timeSlotRepository.save(timeSlot);
     }
 
+    //
     public void deleteTimeSlot(Long id) {
         timeSlotRepository.deleteById(id);
     }
 
+    //
+    public String deleteAllTimeSlots() {
+        try {
+            timeSlotRepository.deleteAll();
+            return "All timeslots deleted successfully";
+        } catch (Exception e) {
+            return "An error has occurred during deletion";
+        }
+    }
+
+    //
     public TimeSlot updateTimeSlot(Long id, TimeSlot updatedTimeSlot) {
         TimeSlot existing = timeSlotRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TimeSlot not found"));

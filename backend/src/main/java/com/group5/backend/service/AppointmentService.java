@@ -37,6 +37,17 @@ public class AppointmentService {
         appointmentRepository.deleteById(id);
     }
 
+    // deletes all appointments
+    public String deleteAllAppointments() {
+        try {
+            appointmentRepository.deleteAll();
+            return "All appointments deleted successfully";
+        } catch (Exception e) {
+            return "An error has occurred during deletion";
+        }
+    }
+
+
     // gets a specific appointment by id# and updates the info as listed
     public Appointment updateAppointment(Long id, Appointment updatedAppointment) {
         Appointment existing = appointmentRepository.findById(id)

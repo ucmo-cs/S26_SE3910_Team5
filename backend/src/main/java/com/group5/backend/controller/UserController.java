@@ -55,6 +55,14 @@ public class UserController {
     }
 
     // =========================
+    // DELETE ALL
+    // =========================
+    @DeleteMapping("/ALL")
+    public String deleteAllUsers() {
+        return userService.deleteAllUsers();
+    }
+
+    // =========================
     // PUT BY ID
     // =========================
     @PutMapping("/{id}")
