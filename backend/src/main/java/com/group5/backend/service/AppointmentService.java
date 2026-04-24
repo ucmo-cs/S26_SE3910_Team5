@@ -1,9 +1,14 @@
 package com.group5.backend.service;
 
 import com.group5.backend.model.Appointment;
+import com.group5.backend.model.TimeSlot;
+import com.group5.backend.model.User;
 import com.group5.backend.repository.AppointmentRepository;
+import com.group5.backend.repository.TimeSlotRepository;
+import com.group5.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

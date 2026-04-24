@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="added a service layer for all 4 tables and finished up adding the basics for them all.&#10;Now all 4 have GET (all, and via id), POST, DELETE, and PUT functionality">
-      <change afterPath="$PROJECT_DIR$/backend/database/UpdatedSeed.sql" afterDir="false" />
+    <list default="true" id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="added a seed with updated accurate branch name and addresses. Also added a DELETE (type)/ALL for each of the tables for easier restructuring with real data.">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentMakerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/AppointmentMakerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/AppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TimeSlotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/TimeSlotController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/database/UpdatedSeed.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/UpdatedSeed.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/TimeSlotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/TimeSlotService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775754513280</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added a seed with updated accurate branch name and addresses. Also added a DELETE (type)/ALL for each of the tables for easier restructuring with real data.">
+      <option name="closed" value="true" />
+      <created>1776966012091</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1776966012091</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +162,7 @@
     <MESSAGE value="Heres the code for the database along with some test data&#10;&#10;I have been trying to push this stupid little bit of code for HOURS now and every possible bug/issue that could exist/happen happened. The readme has instructions for getting your own local database running. (I have plans to fix in the future but for now everything just works)" />
     <MESSAGE value="filed away the front end from the back end. Also added all the basic get/post stuff to interact between the database and the code" />
     <MESSAGE value="added a service layer for all 4 tables and finished up adding the basics for them all.&#10;Now all 4 have GET (all, and via id), POST, DELETE, and PUT functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a service layer for all 4 tables and finished up adding the basics for them all.&#10;Now all 4 have GET (all, and via id), POST, DELETE, and PUT functionality" />
+    <MESSAGE value="added a seed with updated accurate branch name and addresses. Also added a DELETE (type)/ALL for each of the tables for easier restructuring with real data." />
+    <option name="LAST_COMMIT_MESSAGE" value="added a seed with updated accurate branch name and addresses. Also added a DELETE (type)/ALL for each of the tables for easier restructuring with real data." />
   </component>
 </project>

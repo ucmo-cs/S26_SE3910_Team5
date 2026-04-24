@@ -9,7 +9,7 @@ Blue Springs, MO 64014'),
 Lee''s Summit, MO 64064'),
     ('Independence Center 39th St. South', '18700 E 39th St. S
 Independence, MO 64057'),
-    ('Lee''s Summit 291 & 3rd St.', '301 SE Hwy 291
+    ('Lees Summit 291 & 3rd St.', '301 SE Hwy 291
 Lees Summit, MO 64063'),
     ('Independence Noland Road', '2915 S Noland Rd
 Independence, MO 64055'),
