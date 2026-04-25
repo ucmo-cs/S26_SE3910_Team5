@@ -178,7 +178,7 @@ function mapBranchToLocation(branch) {
         address,
         city,
         distance: '--',
-        appointments: 'Call for availability',
+        appointments: '',
         branchId: branch.branchId,
         branchName: branch.branchName,
         fullAddress: branch.address || '',
@@ -541,7 +541,9 @@ export default function LocationStep({ selectedLocation, selectedTopics, onUpdat
                                                 <p className="location-city">
                                                     {[location.address, location.city].filter(Boolean).join(', ')}
                                                 </p>
-                                                <p className="location-appointments">{location.appointments}</p>
+                                                {location.appointments && (
+                                                    <p className="location-appointments">{location.appointments}</p>
+                                                )}
                                                 {!location.supportsSelectedTopics && (
                                                     <p className="location-topic-warning">
                                                         This location does not support: {formatMissingTopics(location.missingTopics)}.
