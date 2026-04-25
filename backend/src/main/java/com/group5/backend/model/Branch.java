@@ -16,6 +16,9 @@ public class Branch {
     @Column(nullable = false)
     private String address;
 
+    @Column(name = "types")
+    private String types;
+
     // Constructors
     public Branch() {}
 
@@ -48,4 +51,8 @@ public class Branch {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getTypes() {return types;}
+
+    public void setTypes(String types) {this.types = types;}
 }

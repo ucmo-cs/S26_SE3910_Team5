@@ -33,16 +33,34 @@ public class BranchController {
     }
 
     // =========================
+    // GET TYPES BY BRANCH ID
+    // =========================
+    @GetMapping("/{id}/types")
+    public List<String> getBranchTypes(@PathVariable Long id) {
+        return branchService.getBranchTypes(id);
+    }
+
+    // =========================
+    // GET BRANCHES BY TYPE
+    // =========================
+    @GetMapping("/type/{type}")
+    public List<Branch> getBranchesByType(@PathVariable String type) {
+        return branchService.getBranchesByType(type);
+    }
+
+    // =========================
     // POST (CREATE)
     // =========================
     @PostMapping
     public Branch createBranch(@RequestBody Branch branch) {
         return branchService.createBranch(branch);
     }
+
     // example input
     // {
     //     "branchName": "South Branch",
-    //     "address": "789 South Rd"
+    //     "address": "789 South Rd",
+    //     "types": "checking, savings, auto, mortgage"
     // }
 
     // =========================
@@ -71,8 +89,11 @@ public class BranchController {
 
         return branchService.updateBranch(id, branch);
     }
-    //    {
-    //        "branchName": "Updated Branch",
-    //        "address": "123 New Address"
-    //    }
+
+    // example input
+    // {
+    //     "branchName": "Updated Branch",
+    //     "address": "123 New Address",
+    //     "types": "checking, cds, mortgage, credit"
+    // }
 }

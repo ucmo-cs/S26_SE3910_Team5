@@ -16,7 +16,8 @@ CREATE TABLE users (
 CREATE TABLE branches (
                           branch_id BIGSERIAL PRIMARY KEY,
                           branch_name VARCHAR(150) NOT NULL,
-                          address VARCHAR(255) NOT NULL
+                          address VARCHAR(255) NOT NULL,
+                          types VARCHAR(255)
 );
 
 -- =========================
