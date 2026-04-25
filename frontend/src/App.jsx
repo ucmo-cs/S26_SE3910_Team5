@@ -257,6 +257,7 @@ export default function App() {
                     <div className="section-content">
                         <LocationStep
                             selectedLocation={formData.location}
+                            selectedTopics={formData.topics}
                             onUpdate={updateLocation}
                             onContinue={() => unlockAndScrollTo(3)}
                             showContinue={currentStep === 2}

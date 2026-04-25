@@ -487,6 +487,8 @@ body {
     gap: 12px;
     margin-bottom: 20px;
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Full-bleed map: break out of centered column; above progress line so rail sits behind */
@@ -495,6 +497,7 @@ body {
     z-index: 3;
     width: 100vw;
     max-width: none;
+    padding-top: 16px;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-bottom: 24px;
@@ -676,10 +679,25 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.locations-list-shell {
+    min-height: 540px;
+}
+
+.locations-list.results-refreshing {
+    opacity: 0.55;
+    filter: saturate(0.85);
+    pointer-events: none;
 }
 
 .location-card {
     padding: 24px 0;
+}
+
+.location-card.location-card--unsupported {
+    opacity: 0.5;
 }
 
 .location-main {
@@ -723,6 +741,13 @@ body {
     margin: 0;
 }
 
+.location-topic-warning {
+    color: #9ca3af;
+    font-size: 13px;
+    margin: 8px 0 0 0;
+    font-style: italic;
+}
+
 .location-distance {
     color: #6b7280;
     font-size: 16px;
@@ -750,6 +775,13 @@ body {
 
 .select-location-btn.selected {
     background-color: #65a30d;
+}
+
+.select-location-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .location-divider {
