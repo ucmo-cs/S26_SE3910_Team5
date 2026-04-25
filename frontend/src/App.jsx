@@ -282,6 +282,7 @@ export default function App() {
                     <div className="section-content">
                         <TimeSelection
                             selectedDateTime={formData.dateTime}
+                            selectedLocation={formData.location}
                             onUpdate={updateDateTime}
                             onContinue={() => unlockAndScrollTo(4)}
                             showContinue={currentStep === 3}
