@@ -1,6 +1,8 @@
 // src/pages/LocationStep.jsx
 import { useEffect, useRef, useState } from 'react';
 import { MapPin } from 'lucide-react';
+import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const BRANCHES_API_URL = 'http://localhost:8080/branches';
 const ZIP_LOOKUP_API_URL = 'https://api.zippopotam.us/us';
@@ -9,6 +11,11 @@ const ZIP_CODE_PATTERN = /^\d{5}$/;
 const EARTH_RADIUS_MILES = 3958.8;
 const GEOCODE_DELAY_MS = 250;
 const RESULTS_BATCH_SIZE = 3;
+const DEFAULT_MAP_CENTER = { latitude: 39.0997, longitude: -94.5786 };
+const DEFAULT_MAP_ZOOM = 11;
+const SELECTED_MAP_ZOOM = 13;
+const SELECTED_MARKER_RADIUS = 11;
+const UNSELECTED_MARKER_RADIUS = 8;
 const TOPIC_LABELS = {
     checking: 'Checking Account',
     savings: 'Savings Account',
@@ -104,6 +111,16 @@ function formatDistance(distanceMiles) {
         return '--';
     }
     return `${distanceMiles.toFixed(1)} miles`;
+}
+
+function RecenterMap({ center, zoom }) {
+    const map = useMap();
+
+    useEffect(() => {
+        map.setView([center.latitude, center.longitude], zoom, { animate: true });
+    }, [map, center.latitude, center.longitude, zoom]);
+
+    return null;
 }
 
 function haversineMiles(fromCoords, toCoords) {
@@ -205,6 +222,15 @@ export default function LocationStep({ selectedLocation, selectedTopics, onUpdat
     const addressGeocodeCacheRef = useRef(new Map());
     const visibleLocations = displayLocations.slice(0, visibleCount);
     const isRefreshingResults = searching && displayLocations.length > 0;
+    const mappableLocations = visibleLocations.filter(
+        (location) => Number.isFinite(location.latitude) && Number.isFinite(location.longitude),
+    );
+    const selectedMappableLocation = mappableLocations.find((location) => location.id === selected);
+    const prioritizedMapLocation = selectedMappableLocation || mappableLocations[0] || null;
+    const mapCenter = prioritizedMapLocation
+        ? { latitude: prioritizedMapLocation.latitude, longitude: prioritizedMapLocation.longitude }
+        : DEFAULT_MAP_CENTER;
+    const mapZoom = selectedMappableLocation ? SELECTED_MAP_ZOOM : DEFAULT_MAP_ZOOM;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -312,36 +338,6 @@ export default function LocationStep({ selectedLocation, selectedTopics, onUpdat
         resolvedLocations.sort((a, b) => a.distanceMiles - b.distanceMiles);
         const rankedByDistance = [...resolvedLocations, ...unresolvedLocations];
         return { resolvedLocations, rankedLocations: prioritizeByTopicSupport(rankedByDistance, selectedTopics) };
-    };
-
-    const inferNearestZip = async (originCoordinates, locations) => {
-        const addressCache = addressGeocodeCacheRef.current;
-        let nearestZip = '';
-        let nearestDistance = Number.POSITIVE_INFINITY;
-
-        for (let index = 0; index < locations.length; index += 1) {
-            const location = locations[index];
-            if (!location.zipCode) {
-                continue;
-            }
-
-            let coords = addressCache.get(location.zipCode);
-            if (typeof coords === 'undefined') {
-                coords = await getZipCoordinates(location.zipCode, undefined);
-                addressCache.set(location.zipCode, coords);
-            }
-            if (!coords) {
-                continue;
-            }
-
-            const distance = haversineMiles(originCoordinates, coords);
-            if (distance < nearestDistance) {
-                nearestDistance = distance;
-                nearestZip = location.zipCode;
-            }
-        }
-
-        return nearestZip;
     };
 
     useEffect(() => {
@@ -471,15 +467,50 @@ export default function LocationStep({ selectedLocation, selectedTopics, onUpdat
 
             <div className="map-full-bleed">
                 <div className="map-container">
-                    <div className="map-placeholder map-fallback">
-                        <div className="map-pin-marker">
-                            <div className="pin-popup">
-                                <strong>Commerce Bank</strong>
-                                <p>922 Walnut St<br/>Kansas City, MO 64106</p>
-                            </div>
-                            <div className="pin-point"></div>
+                    <MapContainer
+                        center={[mapCenter.latitude, mapCenter.longitude]}
+                        zoom={mapZoom}
+                        scrollWheelZoom
+                        className="leaflet-map"
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <RecenterMap center={mapCenter} zoom={mapZoom} />
+
+                        {mappableLocations.map((location) => {
+                            const isSelected = location.id === selected;
+                            return (
+                                <CircleMarker
+                                    key={location.id}
+                                    center={[location.latitude, location.longitude]}
+                                    radius={isSelected ? SELECTED_MARKER_RADIUS : UNSELECTED_MARKER_RADIUS}
+                                    pathOptions={{
+                                        color: isSelected ? '#0f766e' : '#0891b2',
+                                        fillColor: isSelected ? '#14b8a6' : '#06b6d4',
+                                        fillOpacity: 0.9,
+                                        weight: isSelected ? 3 : 2,
+                                    }}
+                                    eventHandlers={{
+                                        click: () => handleSelect(location),
+                                    }}
+                                >
+                                    <Popup>
+                                        <strong>{location.branchName || location.address}</strong>
+                                        <p>{[location.address, location.city].filter(Boolean).join(', ')}</p>
+                                        <p>{location.distance}</p>
+                                    </Popup>
+                                </CircleMarker>
+                            );
+                        })}
+                    </MapContainer>
+
+                    {!loading && mappableLocations.length === 0 && (
+                        <div className="map-status-overlay">
+                            Map markers will appear once branch coordinates are resolved from ZIP data.
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
