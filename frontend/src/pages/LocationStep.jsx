@@ -10,7 +10,7 @@ const IP_GEOLOOKUP_URL = 'https://ipapi.co/json/';
 const ZIP_CODE_PATTERN = /^\d{5}$/;
 const EARTH_RADIUS_MILES = 3958.8;
 const GEOCODE_DELAY_MS = 250;
-const RESULTS_BATCH_SIZE = 3;
+const RESULTS_BATCH_SIZE = 6;
 const DEFAULT_MAP_CENTER = { latitude: 39.0997, longitude: -94.5786 };
 const DEFAULT_MAP_ZOOM = 11;
 const SELECTED_MAP_ZOOM = 13;
@@ -508,7 +508,7 @@ export default function LocationStep({ selectedLocation, selectedTopics, onUpdat
 
                     {!loading && mappableLocations.length === 0 && (
                         <div className="map-status-overlay">
-                            Map markers will appear once branch coordinates are resolved from ZIP data.
+                            Loading...
                         </div>
                     )}
                 </div>

@@ -599,14 +599,18 @@ body {
 }
 
 .locations-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
     transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
 .locations-list-shell {
     min-height: 540px;
+}
+
+.locations-list > :not(.location-card) {
+    grid-column: 1 / -1;
 }
 
 .locations-list.results-refreshing {
@@ -616,7 +620,10 @@ body {
 }
 
 .location-card {
-    padding: 24px 0;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
 }
 
 .location-card.location-card--unsupported {
@@ -642,7 +649,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 16px;
+    margin-bottom: 0px;
 }
 
 .location-address-block h3 {
@@ -739,6 +746,10 @@ body {
 
     .topics-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .locations-list {
+        grid-template-columns: 1fr;
     }
 }
 
