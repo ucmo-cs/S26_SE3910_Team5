@@ -372,11 +372,16 @@ export default function TimeSelection({
             return;
         }
 
+        const slotEndDate = new Date(slot.slotDate);
+        slotEndDate.setMinutes(slotEndDate.getMinutes() + SLOT_INCREMENT_MINUTES);
+
         setSelectedMinuteKey(slot.minuteKey);
         onUpdate({
+            branchId: Number(selectedBranchId),
             date: toDisplayDate(selectedDate),
             time: slot.label,
             isoStart: slot.slotDate.toISOString(),
+            isoEnd: slotEndDate.toISOString(),
         });
     };
 
