@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="Created the more accurate appointment system that takes in all the data before finalizing it in the database. Allows for easier rollbacks in case of a user starting an appointment but not finalizing it.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/database/UpdatedSeed.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/UpdatedSeed.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/database/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/BranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/controller/BranchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/model/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/BranchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/group5/backend/service/BranchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Confirmation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Confirmation.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +32,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ucmo-cs/S26_SE3910_Team5.git&quot;,
-    &quot;accountId&quot;: &quot;98efc45e-827e-4144-ab80-049630b0600c&quot;
+    &quot;accountId&quot;: &quot;f0a09fb1-cffb-4f73-b8ce-a939615245a9&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -64,7 +60,7 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hunte/IdeaProjects/S26_SE3910_Team5&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/5Cree/IdeaProjects/S26_SE3910_Team5Final&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
@@ -104,13 +100,7 @@
       </method>
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
-      </set>
-    </attachedChunks>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0cd5d434-699a-41e9-8efc-52e60a81767c" name="Changes" comment="" />

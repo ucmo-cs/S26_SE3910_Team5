@@ -44,6 +44,40 @@ export default function Confirmation({ formData, onEdit, onCancel }) {
         return topicMap[topicId] || topicId;
     };
 
+    const handleConfirmAppointment = async () => {
+        try {
+            const selectedTopics = formData.topics.join(', ');
+
+            const response = await fetch('http://localhost:8080/appointments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: {
+                        userId: formData.contact.userId,
+                    },
+                    timeSlot: {
+                        timeSlotId: 3
+                    },
+                    type: selectedTopics,
+                    status: 'booked',
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Could not create appointment: ${response.status}`);
+            }
+
+            const savedAppointment = await response.json();
+            console.log('Appointment saved:', savedAppointment);
+            alert('Appointment confirmed!');
+        } catch (error) {
+            console.error('Error creating appointment:', error);
+            alert(error.message);
+        }
+    };
+
     const topicItems =
         topics.length > 0
             ? topics.map((id) => ({ id, label: formatTopic(id) }))
@@ -114,6 +148,9 @@ export default function Confirmation({ formData, onEdit, onCancel }) {
             <div className="confirmation-actions">
                 <button type="button" className="btn-edit" onClick={onEdit}>
                     Edit Appointment
+                </button>
+                 <button type="button" className="btn-confirm" onClick={handleConfirmAppointment}>
+                    Confirm Appointment
                 </button>
                 <button type="button" className="btn-cancel" onClick={onCancel}>
                     Cancel Appointment
